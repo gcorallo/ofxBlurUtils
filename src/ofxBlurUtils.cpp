@@ -26,6 +26,7 @@ void ofxBlurUtils::setup(int ww_, int hh_){
     //load shaders.
     blurX.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurX");
     blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
+    maskShader.load("../../../../../addons/ofxBlurUtils/shaders/maskSh");
     
     offSet = 1.0;
     mode = 0;
@@ -36,7 +37,22 @@ void ofxBlurUtils::setup(int ww_, int hh_){
 void ofxBlurUtils::begin(){
     
     
+    
     if(!bypass){
+        
+        if(isTiltShift){
+            mask.begin();
+            maskShader.begin();
+            maskShader.setUniform1i("mode", maskMode);
+            ofSetColor(255);
+            ofDrawRectangle(0, 0, ww, hh);
+            
+            maskShader.end();
+            mask.end();
+            
+        }
+        
+        
         pong.begin();
     }
     
@@ -47,9 +63,13 @@ void ofxBlurUtils::begin(){
 
 void ofxBlurUtils::end(){
     
+    
+    
     if(!bypass){
         pong.end();
         ofSetColor(255);
+        
+        pong.draw(0,0);
         
         
         
@@ -92,10 +112,24 @@ void ofxBlurUtils::end(){
             
         }
         
-        
-        pong.draw(0,0);
+        if(isTiltShift){
+            mix.begin();
+            pong.draw(0,0);
+            mix.end();
+            
+            
+            mix.getTexture().setAlphaMask(mask.getTexture());
+            mix.draw(0,0);
+            
+        }
+        else{
+            pong.draw(0, 0);
+        }
         
     }
+    
+    
+    
     
     
 }
@@ -126,6 +160,24 @@ void ofxBlurUtils::setBypass(bool bypass_){
     
 }
 
-
+void ofxBlurUtils::setupTiltShift(){
+    
+    mask.allocate(ww, hh, GL_RGB);
+    mix.allocate(ww, hh, GL_RGBA);
+    
+    mask.begin();
+    ofClear(0);
+    mask.end();
+    
+    mix.begin();
+    ofClear(0);
+    mix.end();
+    
+    isTiltShiftInit = true;
+    isTiltShift = true;
+    
+    maskMode = 1;
+    
+}
 
 

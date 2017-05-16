@@ -23,15 +23,24 @@ public:
     
     ofShader blurX;
     ofShader blurY;
+    ofShader maskShader;
     
     ofFbo ping;
     ofFbo pong;
+    
+    ofFbo mask;
+    ofFbo mix;
+    
+    
+    
     
     int ww;
     int hh;
     
     //basic methods
     void setup(int ww_, int hh_);
+    void setupTiltShift(); 
+    
     void begin();
     void end();
     
@@ -42,6 +51,10 @@ public:
     
     void setBypass(bool bypass_);
     
+    void setTiltShift(bool isTiltShift_);
+    
+    
+    
 private:
     
     int mode;
@@ -51,8 +64,10 @@ private:
     bool bypass;
     
     
+    bool isTiltShift;
+    bool isTiltShiftInit;
     
-    
+    int maskMode;
 
 
 };
