@@ -31,6 +31,9 @@ void ofxBlurUtils::setup(int ww_, int hh_){
     offSet = 1.0;
     mode = 0;
     nPasses = 1;
+    atenuateLastPass = false;
+    
+    ofAddListener(ofEvents().mouseMoved, this, &ofxBlurUtils::mouseMoved);
     
 }
 
@@ -105,6 +108,14 @@ void ofxBlurUtils::end(){
             ofClear(0,255);
             blurY.begin();
             blurY.setUniform1f("blurAmnt", offsetChoice);
+            
+            if(i==nPasses){
+                blurY.setUniform1f("atenuateLastPass", atenuateLastPass);
+            }
+            else{
+                blurY.setUniform1f("atenuateLastPass", false);
+            }
+            
             ofSetColor(255);
             ping.draw(0,0);
             blurY.end();
@@ -179,5 +190,14 @@ void ofxBlurUtils::setupTiltShift(){
     maskMode = 1;
     
 }
+
+void ofxBlurUtils::mouseMoved(ofMouseEventArgs & mouse){
+    
+    //cout<<"moved!!!:: "<<mouse.x<<endl;
+    //cout<<mouse.Pressed<<endl;
+    mouse.Pressed;
+    
+}
+
 
 

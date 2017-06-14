@@ -7,7 +7,7 @@ uniform int mode;
 void main()
 {
     
-    vec2 resolution = vec2(1024.0,768.0);
+    vec2 resolution = vec2(1920.,1080.0);
     vec2 uv = gl_FragCoord.xy/resolution;
     vec4 color;
     float v;

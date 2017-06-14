@@ -34,6 +34,8 @@ public:
     
     
     
+    
+    
     int ww;
     int hh;
     
@@ -53,6 +55,10 @@ public:
     
     void setTiltShift(bool isTiltShift_);
     
+    //events:
+    void mouseMoved(ofMouseEventArgs & mouse);
+    
+     bool atenuateLastPass;
     
     
 private:
@@ -69,7 +75,7 @@ private:
     
     int maskMode;
 
-
+   
 };
 
 

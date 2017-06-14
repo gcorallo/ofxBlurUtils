@@ -3,6 +3,7 @@
 uniform sampler2DRect tex0;
 
 uniform float blurAmnt;
+uniform bool atenuateLastPass;
 
 in vec2 texCoordVarying;
 out vec4 outputColor;
@@ -25,6 +26,9 @@ void main()
 	color += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * -4.0));
 
     color /= 25.0;
+    if(atenuateLastPass){
+        color.rgb *=.99;
+    }
     
     outputColor = color;
 }

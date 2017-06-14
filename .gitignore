@@ -1,0 +1,16 @@
+bin/.app
+bin/data/users
+bin/.exe
+bin/.dll
+bin/.ilk
+bin/.pdb
+*.mp4
+!spec/*.mp4
+*.app
+*.exe
+!spec/*.app
+!spec/*.exe
+!spec/*.dll
+*.dll
+obj/
+.DS_Store
