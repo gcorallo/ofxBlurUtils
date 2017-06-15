@@ -41,10 +41,12 @@ public:
     
     //basic methods
     void setup(int ww_, int hh_);
-    void setupTiltShift(); 
+    void setupTiltShift();              //enables use of alpha mask.
+    void setupRGB(int ww_, int hh_);
     
     void begin();
     void end();
+    void endRGB();
     
     //conf methods
     void setMode(int mode_);

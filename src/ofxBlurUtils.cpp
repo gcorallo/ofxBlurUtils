@@ -37,6 +37,36 @@ void ofxBlurUtils::setup(int ww_, int hh_){
     
 }
 
+void ofxBlurUtils::setupRGB(int ww_, int hh_){
+    ww = ww_;
+    hh = hh_;
+    
+    ping.allocate(ww, hh, GL_RGB);
+    pong.allocate(ww, hh, GL_RGB);
+    
+    ping.begin();
+    ofClear(0);
+    ping.end();
+    
+    pong.begin();
+    ofClear(0);
+    pong.end();
+    
+    //load shaders.
+    blurX.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurX");
+    blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
+    maskShader.load("../../../../../addons/ofxBlurUtils/shaders/maskSh");
+    
+    offSet = 1.0;
+    mode = 0;
+    nPasses = 1;
+    atenuateLastPass = false;
+    
+    ofAddListener(ofEvents().mouseMoved, this, &ofxBlurUtils::mouseMoved);
+    
+}
+
+
 void ofxBlurUtils::begin(){
     
     
@@ -144,6 +174,89 @@ void ofxBlurUtils::end(){
     
     
 }
+
+
+void ofxBlurUtils::endRGB(){
+    
+    
+    
+    if(!bypass){
+        pong.end();
+        ofSetColor(255);
+        
+        pong.draw(0,0);
+        
+        
+        
+        
+        for(int i=0; i< nPasses+1 ; i++){
+            float offsetChoice;
+            if(mode == 0){
+                offsetChoice = offSet;
+            }
+            else if(mode == 1){
+                offsetChoice = i*offSet;
+            }
+            else if(mode == 2){
+                offsetChoice = (nPasses-i)*offSet;
+            }
+            else if(mode == 3){
+                offsetChoice = (i*i)*offSet;
+            }
+            
+            
+            
+            ping.begin();
+            ofClear(0,255);
+            blurX.begin();
+            pong.draw(0,0);
+            blurX.setUniform1f("blurAmnt", offsetChoice);
+            ofSetColor(255);
+            blurX.end();
+            ping.end();
+            
+            
+            pong.begin();
+            ofClear(0,255);
+            blurY.begin();
+            blurY.setUniform1f("blurAmnt", offsetChoice);
+            
+            if(i==nPasses){
+                blurY.setUniform1f("atenuateLastPass", atenuateLastPass);
+            }
+            else{
+                blurY.setUniform1f("atenuateLastPass", false);
+            }
+            
+            ofSetColor(255);
+            ping.draw(0,0);
+            blurY.end();
+            pong.end();
+            
+        }
+        
+        if(isTiltShift){
+            mix.begin();
+            pong.draw(0,0);
+            mix.end();
+            
+            
+            mix.getTexture().setAlphaMask(mask.getTexture());
+            mix.draw(0,0);
+            
+        }
+        else{
+            pong.draw(0, 0);
+        }
+        
+    }
+    
+    
+    
+    
+    
+}
+
 
 
 
