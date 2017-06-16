@@ -15,6 +15,8 @@ void ofApp::setup(){
     parameters.add(blurRGB.parametersRGB);
     
     gui.setup(parameters);
+    
+    bypass = false;
 
 }
 
@@ -29,6 +31,8 @@ void ofApp::draw(){
     
     
     blurRGB.begin();
+    
+    ofClear(0);
     
     ofBackground(0);
     ofPushMatrix();
@@ -50,7 +54,7 @@ void ofApp::draw(){
     
     ofSetColor(255);
     ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
-    //ofDrawBitmapString("current mode"+ofToString(mode), 50,260);
+    ofDrawBitmapString("current mode"+ofToString(blurRGB.getMode()), 50,260);
     ofDrawBitmapString("mode 0: normal", 50, 300);
     ofDrawBitmapString("mode 1: linear", 50, 320);
     ofDrawBitmapString("mode 2: inverse linear", 50, 340);
@@ -60,6 +64,22 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    if(key == ' '){
+        bypass = !bypass;
+        blurRGB.setBypass(bypass);
+    }
+    else if(key == '0'){
+        blurRGB.setMode(0);
+    }
+    else if(key == '1'){
+        blurRGB.setMode(1);
+    }
+    else if(key == '2'){
+        blurRGB.setMode(2);
+    }
+    else if(key == '3'){
+        blurRGB.setMode(3);
+    }
 
 }
 

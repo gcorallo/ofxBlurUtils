@@ -33,6 +33,8 @@ class ofApp : public ofBaseApp{
     ofParameterGroup parameters;
     ofXml settings;
     
+    bool bypass;
+    
     
 		
 };

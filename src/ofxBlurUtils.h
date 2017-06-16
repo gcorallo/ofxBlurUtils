@@ -31,9 +31,7 @@ public:
     ofFbo mask;
     ofFbo mix;
     
-    
-    
-    
+
     
     
     int ww;
@@ -53,8 +51,10 @@ public:
     void setNPasses(int nPasses_);
     void setOffset(float offset_);
     
-    void setBypass(bool bypass_);
+    int getMode();
     
+    
+    void setBypass(bool bypass_);
     void setTiltShift(bool isTiltShift_);
     
     //events:

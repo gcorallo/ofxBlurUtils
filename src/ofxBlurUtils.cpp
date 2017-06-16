@@ -53,8 +53,12 @@ void ofxBlurUtils::setupRGB(int ww_, int hh_){
     pong.end();
     
     //load shaders.
-    blurX.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurX");
-    blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
+    //blurX.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurX");
+    //blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
+    
+    
+    blurX.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurX_RGB");
+    blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY_RGB");
     maskShader.load("../../../../../addons/ofxBlurUtils/shaders/maskSh");
     
     
@@ -210,7 +214,6 @@ void ofxBlurUtils::endRGB(){
             }
             
             
-            
             ping.begin();
             ofClear(0,255);
             blurX.begin();
@@ -323,6 +326,12 @@ void ofxBlurUtils::mouseMoved(ofMouseEventArgs & mouse){
     //cout<<"moved!!!:: "<<mouse.x<<endl;
     //cout<<mouse.Pressed<<endl;
     mouse.Pressed;
+    
+}
+
+int ofxBlurUtils::getMode(){
+
+    return mode;
     
 }
 

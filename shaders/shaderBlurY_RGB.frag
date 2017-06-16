@@ -2,6 +2,10 @@
 
 uniform sampler2DRect tex0;
 
+uniform float blurAmntR;
+uniform float blurAmntG;
+uniform float blurAmntB;
+
 uniform float blurAmnt;
 uniform bool atenuateLastPass;
 
@@ -13,22 +17,25 @@ void main()
 
     vec4 color;
 	
-	color += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * 4.0));
-	color += 2.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * 3.0));
-	color += 3.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * 2.0));
-	color += 4.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * 1.0));
+    color += 2.0 * texture(tex0, texCoordVarying );
     
-	color += 5.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt));
-	
-	color += 4.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * -1.0));
-	color += 3.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * -2.0));
-	color += 2.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * -3.0));
-	color += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmnt * -4.0));
+    color.r += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntR * 1.0)).r;
+    color.r += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntR * -1.0)).r;
 
-    color /= 25.0;
+    color.g += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntG * 1.0)).g;
+    color.g += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntG * -1.0)).g;
+    
+    color.b += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntB * 1.0)).b;
+    color.b += 1.0 * texture(tex0, texCoordVarying + vec2(0.0, blurAmntB * -1.0)).b;
+
+    
+    
+    color /= 4.0;
     if(atenuateLastPass){
         color.rgb *=.99;
     }
+    
+    color.a = 1.0;
     
     outputColor = color;
 }
