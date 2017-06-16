@@ -9,6 +9,13 @@ void ofApp::setup(){
     blurRGB.setupRGB(ww, hh);
     
     ang = 0.0f;
+    
+    
+    parameters.setName("settings");
+    parameters.add(blurRGB.parametersRGB);
+    
+    gui.setup(parameters);
+
 }
 
 //--------------------------------------------------------------

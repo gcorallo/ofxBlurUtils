@@ -28,7 +28,7 @@ void ofxBlurUtils::setup(int ww_, int hh_){
     blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
     maskShader.load("../../../../../addons/ofxBlurUtils/shaders/maskSh");
     
-    offSet = 1.0;
+    offset = 1.0;
     mode = 0;
     nPasses = 1;
     atenuateLastPass = false;
@@ -57,10 +57,18 @@ void ofxBlurUtils::setupRGB(int ww_, int hh_){
     blurY.load("../../../../../addons/ofxBlurUtils/shaders/shaderBlurY");
     maskShader.load("../../../../../addons/ofxBlurUtils/shaders/maskSh");
     
-    offSet = 1.0;
+    
+    //gui
+    parametersRGB.setName("parametersRGB");
+    parametersRGB.add(nPasses.set("nPasses",1,1,10));
+    parametersRGB.add(offsetR.set("offsetR",1.0,1.0,10.0));
+    parametersRGB.add(offsetG.set("offsetG",1.0,1.0,10.0));
+    parametersRGB.add(offsetB.set("offsetB",1.0,1.0,10.0));
+    
+
     mode = 0;
-    nPasses = 1;
     atenuateLastPass = false;
+    
     
     ofAddListener(ofEvents().mouseMoved, this, &ofxBlurUtils::mouseMoved);
     
@@ -110,16 +118,16 @@ void ofxBlurUtils::end(){
         for(int i=0; i< nPasses+1 ; i++){
             float offsetChoice;
             if(mode == 0){
-                offsetChoice = offSet;
+                offsetChoice = offset;
             }
             else if(mode == 1){
-                offsetChoice = i*offSet;
+                offsetChoice = i*offset;
             }
             else if(mode == 2){
-                offsetChoice = (nPasses-i)*offSet;
+                offsetChoice = (nPasses-i)*offset;
             }
             else if(mode == 3){
-                offsetChoice = (i*i)*offSet;
+                offsetChoice = (i*i)*offset;
             }
             
             
@@ -152,7 +160,7 @@ void ofxBlurUtils::end(){
             pong.end();
             
         }
-        
+
         if(isTiltShift){
             mix.begin();
             pong.draw(0,0);
@@ -186,22 +194,19 @@ void ofxBlurUtils::endRGB(){
         
         pong.draw(0,0);
         
-        
-        
-        
         for(int i=0; i< nPasses+1 ; i++){
-            float offsetChoice;
+            float offsetMode;
             if(mode == 0){
-                offsetChoice = offSet;
+                offsetMode = 1.0;
             }
             else if(mode == 1){
-                offsetChoice = i*offSet;
+                offsetMode = i;
             }
             else if(mode == 2){
-                offsetChoice = (nPasses-i)*offSet;
+                offsetMode = (nPasses-i);
             }
             else if(mode == 3){
-                offsetChoice = (i*i)*offSet;
+                offsetMode = (i*i);
             }
             
             
@@ -210,7 +215,9 @@ void ofxBlurUtils::endRGB(){
             ofClear(0,255);
             blurX.begin();
             pong.draw(0,0);
-            blurX.setUniform1f("blurAmnt", offsetChoice);
+            blurX.setUniform1f("blurAmntR", offsetMode * offsetR);
+            blurX.setUniform1f("blurAmntG", offsetMode * offsetG);
+            blurX.setUniform1f("blurAmntB", offsetMode * offsetB);
             ofSetColor(255);
             blurX.end();
             ping.end();
@@ -219,7 +226,11 @@ void ofxBlurUtils::endRGB(){
             pong.begin();
             ofClear(0,255);
             blurY.begin();
-            blurY.setUniform1f("blurAmnt", offsetChoice);
+            blurY.setUniform1f("blurAmntR", offsetMode * offsetR);
+            blurY.setUniform1f("blurAmntG", offsetMode * offsetG);
+            blurY.setUniform1f("blurAmntB", offsetMode * offsetB);
+            
+            
             
             if(i==nPasses){
                 blurY.setUniform1f("atenuateLastPass", atenuateLastPass);
@@ -234,6 +245,9 @@ void ofxBlurUtils::endRGB(){
             pong.end();
             
         }
+
+        
+        
         
         if(isTiltShift){
             mix.begin();
@@ -272,9 +286,9 @@ void ofxBlurUtils::setNPasses(int nPasses_){
     
 }
 
-void ofxBlurUtils::setOffset(float offset_){
+void ofxBlurUtils::setOffset(float offset_){ 
     
-    offSet = offset_;
+    offset = offset_;
     
 }
 

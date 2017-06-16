@@ -63,12 +63,28 @@ public:
      bool atenuateLastPass;
     
     
+    //gui
+    ofParameterGroup parameters;
+    ofParameter <float> offset;
+    
+    //guiRGB
+    ofParameterGroup parametersRGB;
+    ofParameter <int> nPasses;
+    ofParameter <float> offsetR;
+    ofParameter <float> offsetG;
+    ofParameter <float> offsetB;
+    
+    
+    
+    
+    
+    
 private:
     
     int mode;
-    int nPasses;
+    //int nPasses;
     
-    float offSet;
+    //float offSet;
     bool bypass;
     
     

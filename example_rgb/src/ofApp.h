@@ -30,6 +30,9 @@ class ofApp : public ofBaseApp{
     
     ofxPanel gui;
     
+    ofParameterGroup parameters;
+    ofXml settings;
+    
     
 		
 };
