@@ -32,7 +32,7 @@ void ofApp::draw(){
     
     blurRGB.begin();
     
-    ofClear(0);
+   
     
     ofBackground(0);
     ofPushMatrix();

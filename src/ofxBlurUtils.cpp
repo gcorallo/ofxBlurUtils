@@ -65,9 +65,16 @@ void ofxBlurUtils::setupRGB(int ww_, int hh_){
     //gui
     parametersRGB.setName("parametersRGB");
     parametersRGB.add(nPasses.set("nPasses",1,1,10));
-    parametersRGB.add(offsetR.set("offsetR",1.0,1.0,10.0));
-    parametersRGB.add(offsetG.set("offsetG",1.0,1.0,10.0));
-    parametersRGB.add(offsetB.set("offsetB",1.0,1.0,10.0));
+    parametersRGB.add(offsetR.set("offsetR",1.0,0.0,1.0));
+    parametersRGB.add(offsetG.set("offsetG",1.0,0.0,1.0));
+    parametersRGB.add(offsetB.set("offsetB",1.0,0.0,1.0));
+    parametersRGB.add(mult.set("mult",1.0,1.0,10.0));
+    parametersRGB.add(multX.set("multX",1.0,0.0,1.0));
+    parametersRGB.add(multY.set("multY",1.0,0.0,1.0));
+    parametersRGB.add(gain.set("gain",1.0,1.0,4.0));
+    
+    
+    
     
 
     mode = 0;
@@ -218,9 +225,10 @@ void ofxBlurUtils::endRGB(){
             ofClear(0,255);
             blurX.begin();
             pong.draw(0,0);
-            blurX.setUniform1f("blurAmntR", offsetMode * offsetR);
-            blurX.setUniform1f("blurAmntG", offsetMode * offsetG);
-            blurX.setUniform1f("blurAmntB", offsetMode * offsetB);
+            blurX.setUniform1f("blurAmntR", offsetMode * offsetR * mult * multX);
+            blurX.setUniform1f("blurAmntG", offsetMode * offsetG * mult * multX);
+            blurX.setUniform1f("blurAmntB", offsetMode * offsetB * mult * multX);
+            blurX.setUniform1f("gain", gain);
             ofSetColor(255);
             blurX.end();
             ping.end();
@@ -229,9 +237,10 @@ void ofxBlurUtils::endRGB(){
             pong.begin();
             ofClear(0,255);
             blurY.begin();
-            blurY.setUniform1f("blurAmntR", offsetMode * offsetR);
-            blurY.setUniform1f("blurAmntG", offsetMode * offsetG);
-            blurY.setUniform1f("blurAmntB", offsetMode * offsetB);
+            blurY.setUniform1f("blurAmntR", offsetMode * offsetR * mult * multY);
+            blurY.setUniform1f("blurAmntG", offsetMode * offsetG * mult * multY);
+            blurY.setUniform1f("blurAmntB", offsetMode * offsetB * mult * multY);
+            blurY.setUniform1f("gain", gain);
             
             
             

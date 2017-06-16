@@ -73,6 +73,10 @@ public:
     ofParameter <float> offsetR;
     ofParameter <float> offsetG;
     ofParameter <float> offsetB;
+    ofParameter <float> mult;
+    ofParameter <float> multX;
+    ofParameter <float> multY;
+    ofParameter <float> gain;
     
     
     

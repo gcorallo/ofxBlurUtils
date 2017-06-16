@@ -6,7 +6,8 @@ uniform float blurAmntR;
 uniform float blurAmntG;
 uniform float blurAmntB;
 
-uniform float blurAmnt;
+uniform float gain;
+
 uniform bool atenuateLastPass;
 
 in vec2 texCoordVarying;
@@ -31,6 +32,9 @@ void main()
     
     
     color /= 4.0;
+    
+    color.rgb *=gain;
+    
     if(atenuateLastPass){
         color.rgb *=.99;
     }

@@ -6,6 +6,9 @@ uniform float blurAmntR;
 uniform float blurAmntG;
 uniform float blurAmntB;
 
+uniform float gain;
+
+
 in vec2 texCoordVarying;
 out vec4 outputColor;
 
@@ -28,6 +31,9 @@ void main()
     color /= 4.0;
     
     color.a = 1.0;
+    
+    color.rgb *=gain;
+
     
     outputColor = color;//vec4(vec3(blurAmnt),1.0);
 }
