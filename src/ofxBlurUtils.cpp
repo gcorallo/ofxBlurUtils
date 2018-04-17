@@ -35,6 +35,8 @@ void ofxBlurUtils::setup(int ww_, int hh_){
     
     ofAddListener(ofEvents().mouseMoved, this, &ofxBlurUtils::mouseMoved);
     
+    isTiltShift = false;
+    
 }
 
 void ofxBlurUtils::setupRGB(int ww_, int hh_){
@@ -71,7 +73,7 @@ void ofxBlurUtils::setupRGB(int ww_, int hh_){
     parametersRGB.add(mult.set("mult",1.0,1.0,10.0));
     parametersRGB.add(multX.set("multX",1.0,0.0,1.0));
     parametersRGB.add(multY.set("multY",1.0,0.0,1.0));
-    parametersRGB.add(gain.set("gain",1.0,1.0,4.0));
+    parametersRGB.add(gain.set("gain",1.0,1.0,2.0));
     
     
     
@@ -106,6 +108,8 @@ void ofxBlurUtils::begin(){
         
         
         pong.begin();
+        ofBackground(0);
+       // ofBackgroundGradientWH(ofColor(20,0,20), ofColor(0,0,0), ww, hh);
     }
     
     

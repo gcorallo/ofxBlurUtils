@@ -7,14 +7,16 @@ void ofApp::setup(){
     hh = ofGetWindowHeight();
     
     blurRGB.setupRGB(ww, hh);
+    blurRGB.setMode(3);
     
     ang = 0.0f;
-    
     
     parameters.setName("settings");
     parameters.add(blurRGB.parametersRGB);
     
     gui.setup(parameters);
+    gui.loadFromFile("settings.xml");
+    
     
     bypass = false;
 
@@ -29,12 +31,12 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    ofBackground(0);
     
     blurRGB.begin();
     
-   
     
-    ofBackground(0);
+    
     ofPushMatrix();
     ofTranslate(ww*0.5, hh*0.5);
     ofRotateY(ang);
@@ -54,7 +56,7 @@ void ofApp::draw(){
     
     ofSetColor(255);
     ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
-    ofDrawBitmapString("current mode"+ofToString(blurRGB.getMode()), 50,260);
+    ofDrawBitmapString("current mode"+ofToString(blurRGB.getMode()) + " (change mode with number keys,\nspace to bypass)", 50,260);
     ofDrawBitmapString("mode 0: normal", 50, 300);
     ofDrawBitmapString("mode 1: linear", 50, 320);
     ofDrawBitmapString("mode 2: inverse linear", 50, 340);
