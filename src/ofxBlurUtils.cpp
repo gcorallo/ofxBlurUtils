@@ -109,7 +109,6 @@ void ofxBlurUtils::begin(){
         
         pong.begin();
         ofBackground(0);
-       // ofBackgroundGradientWH(ofColor(20,0,20), ofColor(0,0,0), ww, hh);
     }
     
     

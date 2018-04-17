@@ -6,13 +6,13 @@ A lot of Blur with less passes.
 
 In each i pass the sampling distance changes:
 
-mode0: 1 (normal)
+mode0: 1           * distance  (normal)
 
-mode1: i
+mode1: i           * distance
 
-mode2: npasses-i
+mode2: npasses-i   * distance
 
-mode3: i * i
+mode3: i * i       * distance
 
 
 
@@ -26,6 +26,6 @@ Simplest use of the addon.
 RGB blur with, gain, x/y distances, compensation.
 
 * example_tiltShift.
-Not implemented yet.
+Not working yet.
 
 

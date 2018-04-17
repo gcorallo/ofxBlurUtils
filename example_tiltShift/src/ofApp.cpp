@@ -66,7 +66,6 @@ void ofApp::draw(){
     }
     
     
-    //ofDrawBox(0,0,0,200,100,60);
     
     ofPopMatrix();
     
