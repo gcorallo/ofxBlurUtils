@@ -1,2 +1,0 @@
-ofxBlurUtils
-ofxGui
