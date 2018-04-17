@@ -11,7 +11,7 @@ out vec4 outputColor;
 void main()
 {
 
-    vec4 color;
+    vec4 color = vec4( vec3(0.0), 1.0);
 	
     color += 1.0 * texture(tex1, texCoordVarying + vec2(blurAmnt * -4.0, 0.0));
     color += 2.0 * texture(tex1, texCoordVarying + vec2(blurAmnt * -3.0, 0.0));
