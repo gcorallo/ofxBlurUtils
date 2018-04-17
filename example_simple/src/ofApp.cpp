@@ -6,19 +6,24 @@ void ofApp::setup(){
     gui.setup();
     gui.add(nPasses.setup("nPasses",1,0,10));
     gui.add(offset.setup("offset",1.0,0,20.0));
-    
+    gui.loadFromFile("settings.xml");
+
     
     
     
     ww = ofGetWindowWidth();
     hh = ofGetWindowHeight();
+    
+    mode = 2;
+    
     blur.setup(ww, hh);
     blur.setNPasses(nPasses);
     blur.setOffset(offset);
+    blur.setMode(mode);
     
     
     bypass = false; //bypass shader;
-    mode = 0;
+    
 
 }
 
@@ -60,8 +65,10 @@ void ofApp::draw(){
     
     ofSetColor(255);
     ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
-    ofDrawBitmapString("current mode"+ofToString(mode), 50,260);
-    ofDrawBitmapString("mode 0: normal", 50, 300);
+    ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
+    ofDrawBitmapString("current mode"+ofToString(blur.getMode()) + " (change mode with number keys,\nspace to bypass)", 50,260);
+
+    ofDrawBitmapString("mode 0: constant", 50, 300);
     ofDrawBitmapString("mode 1: linear", 50, 320);
     ofDrawBitmapString("mode 2: inverse linear", 50, 340);
     ofDrawBitmapString("mode 3: exp", 50, 360);
