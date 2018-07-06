@@ -275,7 +275,7 @@ void ofxBlurUtils::endRGB(){
             
         }
         else{
-            pong.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+            pong.draw(0, 0, ww, hh);
         }
         
     }
