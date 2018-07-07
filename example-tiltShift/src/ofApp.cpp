@@ -43,20 +43,20 @@ void ofApp::draw(){
     //draw here:
     ofBackground(0);
     ofPushMatrix();
-    ofTranslate(ww*0.5, hh*0.5);
-    ofRotateX(60);
+    ofTranslate(ww*0.5f, hh*0.5f);
+    ofRotateXDeg(60);
     int cols = 10;
     int rows = 10;
     ofEnableLighting();
     ofSetColor(255);
     
     for(int i=0;i<cols; i++){
-        
-        for(int j=0; j<cols; j++){
-        
+
+        for(int j=0; j<rows; j++){
+
             ofPushMatrix();
-            ofTranslate(i*100 - ww*0.5, j*100-hh*0.5, 0);
-            float h= sin(i+j)*100+130;
+            ofTranslate(i*100 - ww*0.5f, j*100-hh*0.5f, 0);
+            float h = sinf(i+j)*100+130;
             ofDrawBox(0, 0, h/2, 5, 5, -h);
            
             
