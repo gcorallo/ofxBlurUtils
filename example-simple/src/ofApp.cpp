@@ -46,10 +46,10 @@ void ofApp::draw(){
     //draw here:
     ofBackground(0);
     ofPushMatrix();
-    ofTranslate(ww*0.5, hh*0.5);
-    ofRotateY(ang);
-    ofRotateX(ang);
-    
+    ofTranslate(ww*0.5f, hh*0.5f);
+    ofRotateYDeg(ang);
+    ofRotateXDeg(ang);
+
     ofSetColor(255);
     ofDrawBox(0,0,0,200,100,60);
     
@@ -64,7 +64,6 @@ void ofApp::draw(){
     gui.draw();
     
     ofSetColor(255);
-    ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
     ofDrawBitmapString(ofToString(ofGetFrameRate(),2), ww-100, 50);
     ofDrawBitmapString("current mode"+ofToString(blur.getMode()) + " (change mode with number keys,\nspace to bypass)", 50,260);
 

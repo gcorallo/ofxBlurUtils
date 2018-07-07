@@ -38,10 +38,10 @@ void ofApp::draw(){
     
     
     ofPushMatrix();
-    ofTranslate(ww*0.5, hh*0.5);
-    ofRotateY(ang);
-    ofRotateX(ang);
-    
+    ofTranslate(ww*0.5f, hh*0.5f);
+    ofRotateYDeg(ang);
+    ofRotateXDeg(ang);
+
     ofSetColor(255);
     ofDrawBox(0,0,0,200,100,60);
     

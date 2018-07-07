@@ -337,8 +337,7 @@ void ofxBlurUtils::mouseMoved(ofMouseEventArgs & mouse){
     
     //cout<<"moved!!!:: "<<mouse.x<<endl;
     //cout<<mouse.Pressed<<endl;
-    mouse.Pressed;
-    
+
 }
 
 int ofxBlurUtils::getMode(){
